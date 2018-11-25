@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, get_user_model
-from .forms import ContactForm, LoginForm
+from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context = {
         "title": "Hello Python!",
         "content": "Welcome to the home page"
     }
+    if request.user.is_authenticated:
+        context["premium_content"] = "YEEEAH"
+    return render(request, 'ecommerce/home_page.html', context)
+
 
     return render(request, 'ecommerce/home_page.html', context)
 
@@ -45,7 +49,7 @@ def login_page(request):
         "form": form
     }
     print("User logged in")
-    #print(request.user.is_authenticated())
+    print(request.user.is_authenticated)
     if form.is_valid():
         print(form.cleaned_data)
         username  = form.cleaned_data.get("username")
@@ -63,10 +67,16 @@ def login_page(request):
 
 
 User = get_user_model()
-
-
 def register_page(request):
-    form = LoginForm(request.POST or None)
+    form = RegisterForm(request.POST or None)
+    context = {
+        "form": form
+    }
     if form.is_valid():
         print(form.cleaned_data)
-    return render(request, 'ecommerce/auth/register.html', {})
+        username = form.cleaned_data.get("username")
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        new_user = User.objects.create_user(username, email, password)
+        print(new_user)
+    return render(request, 'ecommerce/auth/register.html', context)
