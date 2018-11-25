@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+      <link rel="stylesheet" href='{% static 'ecommerce/css/main.css'%}'>
     <title>Hello, world!</title>
   </head>
   <body>
@@ -20,6 +22,7 @@
    <div class="container">
        <div class="row">
            <div class="col">
+               <img src="{% static 'ecommerce/img/beach.jpg'%}" class="img-fluid">
               <p>{{ content }}</p>
            </div>
        </div>
