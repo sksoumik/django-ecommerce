@@ -4,7 +4,7 @@ from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context = {
-        "title": "Hello Python!",
+        "title"  : "Hello Python!",
         "content": "Welcome to the home page"
     }
     if request.user.is_authenticated:
@@ -17,7 +17,7 @@ def home_page(request):
 
 def about_page(request):
     context = {
-        "title": "About Page",
+        "title"  : "About Page",
         "content": "Welcome to the home page"
 
     }
@@ -27,9 +27,9 @@ def about_page(request):
 def contact_page(request):
     contact_form = ContactForm(request.POST or None)
     context = {
-        "title": "Contact page",
+        "title"  : "Contact page",
         "content": "Welcome to the contact page",
-        "form": contact_form
+        "form"   : contact_form
     }
     if contact_form.is_valid():
         print(contact_form.cleaned_data)
@@ -44,7 +44,7 @@ def contact_page(request):
 
 
 def login_page(request):
-    form = LoginForm(request.POST or None)
+    form    = LoginForm(request.POST or None)
     context = {
         "form": form
     }
@@ -54,7 +54,7 @@ def login_page(request):
         print(form.cleaned_data)
         username  = form.cleaned_data.get("username")
         password  = form.cleaned_data.get("password")
-        user = authenticate(request, username=username, password=password)
+        user      = authenticate(request, username=username, password=password)
         print(user)
         #print(request.user.is_authenticated())
         if user is not None:
@@ -68,14 +68,14 @@ def login_page(request):
 
 User = get_user_model()
 def register_page(request):
-    form = RegisterForm(request.POST or None)
+    form    = RegisterForm(request.POST or None)
     context = {
         "form": form
     }
     if form.is_valid():
         print(form.cleaned_data)
         username = form.cleaned_data.get("username")
-        email = form.cleaned_data.get("email")
+        email    = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
         new_user = User.objects.create_user(username, email, password)
         print(new_user)
